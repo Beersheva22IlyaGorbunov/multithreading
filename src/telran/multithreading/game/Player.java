@@ -1,11 +1,13 @@
 package telran.multithreading.game;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Player extends Thread {
 	int playerNumber;
 	int distance;
-	Integer[] finished;
+	AtomicInteger finished;
 
-	public Player(int playerNumber, int distance, Integer[] finished) {
+	public Player(int playerNumber, int distance, AtomicInteger finished) {
 		this.playerNumber = playerNumber;
 		this.distance = distance;
 		this.finished = finished;
@@ -20,9 +22,7 @@ public class Player extends Thread {
 				sleep(nextStep);
 			} catch (InterruptedException e) {}
 		}
-		if (finished[0] == null) {
-			finished[0] = playerNumber;
-		}
+		finished.compareAndExchange(-1, playerNumber);
 	}
 
 }

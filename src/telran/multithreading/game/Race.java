@@ -1,5 +1,7 @@
 package telran.multithreading.game;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Race extends Thread {
 	public static int MIN_SLEEP = 2;
 	public static int MAX_SLEEP = 5;
@@ -7,7 +9,7 @@ public class Race extends Thread {
 	private int distance;
 	private Player[] players;
 	private int playerQuantity;
-	public Integer[] finished = new Integer[]{null};
+	public AtomicInteger finished = new AtomicInteger(-1);
 	
 	public Race(int distance, int playerQuantity) {
 		this.distance = distance;
@@ -16,7 +18,7 @@ public class Race extends Thread {
 	}
 	
 	public int getWinner() {
-		return finished[0];
+		return finished.get();
 	}
 	
 	@Override

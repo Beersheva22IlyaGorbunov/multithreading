@@ -6,7 +6,7 @@ import telran.view.Menu;
 
 public class Controller {
 	public static int MIN_PLAYERS = 2;
-	public static int MAX_PLAYERS = 10;
+	public static int MAX_PLAYERS = 1000;
 	public static int MIN_DIST = 100;
 	public static int MAX_DIST = 1000;
 	
