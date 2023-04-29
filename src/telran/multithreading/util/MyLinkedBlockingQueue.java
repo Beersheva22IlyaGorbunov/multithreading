@@ -5,6 +5,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
@@ -16,9 +17,8 @@ public class MyLinkedBlockingQueue<E> implements BlockingQueue<E> {
 	ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 	ReadLock readLock = lock.readLock();
 	WriteLock writeLock = lock.writeLock();
-	
-	Condition waitingConsumer = ((Lock) lock).newCondition();
-	Condition waitingProducer = ((Lock) lock).newCondition();
+	Condition waitingConsumer = writeLock.newCondition();
+	Condition waitingProducer = writeLock.newCondition();
 
 	public MyLinkedBlockingQueue(int limit) {
 		this.limit = limit;

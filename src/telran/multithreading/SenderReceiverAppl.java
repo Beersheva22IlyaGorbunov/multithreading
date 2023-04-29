@@ -2,9 +2,12 @@ package telran.multithreading;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import telran.multithreading.consumers.Receiver;
 import telran.multithreading.producers.Sender;
+import telran.multithreading.util.MyLinkedBlockingQueue;
 
 public class SenderReceiverAppl {
 
@@ -13,7 +16,7 @@ public class SenderReceiverAppl {
 	static List<Receiver> receivers = new ArrayList<>();
 
 	public static void main(String[] args) throws InterruptedException {
-		MessageBox messageBox = new MessageBox();
+		BlockingQueue<String> messageBox = new MyLinkedBlockingQueue<>(1);
 		Sender sender = new Sender(messageBox, N_MESSAGES);
 		sender.start();
 		for (int i = 0; i < N_RECEIVERS; i++) {
